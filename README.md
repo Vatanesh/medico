@@ -6,7 +6,7 @@
 
 | Resource | Link |
 |----------|------|
-| 📱 **Android APK** | [Download from GitHub Releases](https://github.com/Vatanesh/medico/releases/download/demo/app-release.apk) |
+| 📱 **Android APK** | [Download from GitHub Releases](https://github.com/Vatanesh/medico/releases/download/v1-alpha/app-release.apk) |
 | 🎥 **iOS Loom Video** | [Watch Feature Walkthrough](https://www.loom.com/YOUR_VIDEO_LINK) |
 | 📚 **API Documentation** | [View API Docs](https://drive.google.com/file/d/1d4Y4bbCVqfuqiHQVxA-2nZytBk3x0wua/view?usp=sharing) |
 | 🔧 **Postman Collection** | [View Postman Collection](https://drive.google.com/file/d/13H5GPdzgAHpR_9sluQxNTnUnuYu5rg02/view?usp=sharing) |
