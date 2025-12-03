@@ -5,6 +5,7 @@ import '../../providers/patient_provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/api/api_service.dart';
 import '../recording/recording_screen.dart';
+import '../recordings/recording_list_screen.dart';
 
 class PatientListScreen extends StatefulWidget {
   const PatientListScreen({super.key});
@@ -24,10 +25,6 @@ class _PatientListScreenState extends State<PatientListScreen> {
 
   Future<void> _initializeAuth() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    
-    if (!authProvider.isAuthenticated) {
-      await authProvider.autoLogin();
-    }
     
     if (authProvider.isAuthenticated && authProvider.userId != null) {
       final patientProvider = Provider.of<PatientProvider>(context, listen: false);
@@ -137,21 +134,42 @@ class _PatientListScreenState extends State<PatientListScreen> {
                           subtitle: patient.email != null
                               ? Text(patient.email!)
                               : null,
-                          trailing: IconButton(
-                            icon: const Icon(Icons.mic),
-                            onPressed: () {
-                              final authProvider = Provider.of<AuthProvider>(context, listen: false);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RecordingScreen(
-                                    patient: patient,
-                                    userId: authProvider.userId!,
-                                  ),
-                                ),
-                              );
-                            },
-                            tooltip: l10n.startRecording,
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // View Recordings button
+                              IconButton(
+                                icon: const Icon(Icons.headset),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RecordingListScreen(
+                                        patient: patient,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                tooltip: 'View Recordings',
+                              ),
+                              // Start Recording button
+                              IconButton(
+                                icon: const Icon(Icons.mic),
+                                onPressed: () {
+                                  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RecordingScreen(
+                                        patient: patient,
+                                        userId: authProvider.userId!,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                tooltip: l10n.startRecording,
+                              ),
+                            ],
                           ),
                         ),
                       );

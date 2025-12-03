@@ -37,9 +37,6 @@ docker-compose up --build
 # Get dependencies
 flutter pub get
 
-# Generate localization files
-flutter gen-l10n
-
 # Run the app
 flutter run
 ```

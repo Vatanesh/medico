@@ -2,12 +2,14 @@ const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
+const cloudinaryService = require('./cloudinaryService');
 
 class StorageService {
     constructor() {
         this.storagePath = process.env.STORAGE_PATH || './uploads';
         this.baseUrl = process.env.BASE_URL || 'http://localhost:3000';
         this.presignedUrls = new Map(); // Store presigned URL mappings
+        this.useCloudinary = process.env.USE_CLOUDINARY === 'true' || process.env.NODE_ENV === 'production';
     }
 
     async initialize() {
@@ -78,7 +80,32 @@ class StorageService {
     async uploadChunk(uploadToken, buffer) {
         const urlInfo = this.validatePresignedUrl(uploadToken);
 
-        // Create session directory
+        // Use Cloudinary if enabled
+        if (this.useCloudinary) {
+            try {
+                const result = await cloudinaryService.uploadChunk(
+                    buffer,
+                    urlInfo.sessionId,
+                    urlInfo.chunkNumber,
+                    urlInfo.mimeType
+                );
+
+                // Clean up used token
+                this.presignedUrls.delete(uploadToken);
+
+                return {
+                    gcsPath: result.gcsPath,
+                    publicUrl: result.publicUrl,
+                    size: result.size,
+                    mimeType: urlInfo.mimeType
+                };
+            } catch (error) {
+                console.error('Cloudinary upload failed:', error);
+                throw error;
+            }
+        }
+
+        // Fallback to local storage
         const sessionDir = path.join(this.storagePath, 'sessions', urlInfo.sessionId);
         await fs.mkdir(sessionDir, { recursive: true });
 
@@ -100,11 +127,18 @@ class StorageService {
      * Get chunk file for public access
      */
     async getChunk(sessionId, filename) {
+        // If using Cloudinary, return URL instead of file data
+        if (this.useCloudinary) {
+            const url = cloudinaryService.getChunkUrl(sessionId, filename);
+            return { url, isCloudinary: true };
+        }
+
+        // Local storage fallback
         const filePath = path.join(this.storagePath, 'sessions', sessionId, filename);
 
         try {
             const data = await fs.readFile(filePath);
-            return data;
+            return { data, isCloudinary: false };
         } catch (error) {
             throw new Error('Chunk not found');
         }

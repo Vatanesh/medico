@@ -40,9 +40,14 @@ class StorageController {
         try {
             const { sessionId, filename } = req.params;
 
-            const data = await storageService.getChunk(sessionId, filename);
+            const result = await storageService.getChunk(sessionId, filename);
 
-            // Set appropriate content type
+            // If using Cloudinary, redirect to Cloudinary URL
+            if (result.isCloudinary) {
+                return res.redirect(result.url);
+            }
+
+            // Serve local file
             const ext = filename.split('.').pop();
             const contentTypes = {
                 'wav': 'audio/wav',
@@ -51,10 +56,19 @@ class StorageController {
                 'aac': 'audio/aac'
             };
 
+            // Set CORS headers for audio playback
+            res.set('Access-Control-Allow-Origin', '*');
+            res.set('Access-Control-Allow-Methods', 'GET');
             res.set('Content-Type', contentTypes[ext] || 'audio/wav');
-            res.send(data);
+            res.set('Accept-Ranges', 'bytes');
+
+            res.send(result.data);
         } catch (error) {
-            next(error);
+            console.error(`Error serving file ${req.params.filename}:`, error.message);
+            res.status(404).json({
+                error: 'File not found',
+                details: error.message
+            });
         }
     }
 }

@@ -15,6 +15,7 @@ import 'providers/auth_provider.dart';
 import 'screens/home/home_screen.dart';
 import 'services/api/api_service.dart';
 import 'models/queued_chunk.dart';
+import 'screens/auth/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,10 +76,48 @@ class MediNoteApp extends StatelessWidget {
               ],
               
               // Home
-              home: const HomeScreen(),
+              home: const AuthWrapper(),
             );
           },
         );
+      },
+    );
+  }
+}
+
+class AuthWrapper extends StatefulWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  State<AuthWrapper> createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  @override
+  void initState() {
+    super.initState();
+    // Check auth status on startup
+    Future.microtask(() =>
+        Provider.of<AuthProvider>(context, listen: false).checkAuthStatus());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, child) {
+        if (authProvider.isInitialAuthCheck) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+        if (authProvider.isAuthenticated) {
+          return const HomeScreen();
+        }
+
+        return const LoginScreen();
       },
     );
   }

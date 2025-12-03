@@ -16,18 +16,49 @@ class ApiService {
     _token = prefs.getString(AppConstants.tokenKey);
   }
 
-  // Save token
-  Future<void> saveToken(String token) async {
+  // Save token and user info
+  Future<void> saveToken(String token, {Map<String, dynamic>? userInfo}) async {
     _token = token;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(AppConstants.tokenKey, token);
+    
+    if (userInfo != null) {
+      if (userInfo.containsKey('id')) {
+        await prefs.setString(AppConstants.userIdKey, userInfo['id']);
+      }
+      if (userInfo.containsKey('name')) {
+        await prefs.setString('user_name', userInfo['name']);
+      }
+    }
   }
 
-  // Clear token
+  // Clear token and user info
   Future<void> clearToken() async {
     _token = null;
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(AppConstants.tokenKey);
+    await prefs.remove(AppConstants.userIdKey);
+    await prefs.remove('user_name');
+  }
+
+  // Check if token exists
+  Future<bool> hasToken() async {
+    if (_token != null) return true;
+    final prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString(AppConstants.tokenKey);
+    return _token != null;
+  }
+
+  // Get stored user info
+  Future<Map<String, String>?> getUserInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final id = prefs.getString(AppConstants.userIdKey);
+    final name = prefs.getString('user_name');
+    
+    if (id != null && name != null) {
+      return {'id': id, 'name': name};
+    }
+    return null;
   }
 
   // Get headers
@@ -57,7 +88,7 @@ class ApiService {
 
     if (response.statusCode == 201) {
       final data = jsonDecode(response.body);
-      await saveToken(data['token']);
+      await saveToken(data['token'], userInfo: data['user']);
       return data;
     } else {
       final error = jsonDecode(response.body);
@@ -78,11 +109,11 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      await saveToken(data['token']);
+      await saveToken(data['token'], userInfo: data['user']);
       return data;
     } else {
       final error = jsonDecode(response.body);
-      throw Exception(error['error'] ?? 'Login failed');
+      throw ApiException(error['error'] ?? 'Login failed', response.statusCode);
     }
   }
 
@@ -255,4 +286,14 @@ class ApiService {
       throw Exception('Failed to load templates');
     }
   }
+}
+
+class ApiException implements Exception {
+  final String message;
+  final int statusCode;
+
+  ApiException(this.message, this.statusCode);
+
+  @override
+  String toString() => message;
 }

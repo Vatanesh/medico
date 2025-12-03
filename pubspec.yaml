@@ -40,6 +40,7 @@ dependencies:
   # Audio recording
   record: ^6.0.0
   audio_waveforms: ^1.0.5
+  audioplayers: ^6.0.0
   path_provider: ^2.1.1
   
   # State management
