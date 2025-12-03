@@ -235,4 +235,110 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statusLocalization => 'Localization';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account?';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get loginButton => 'Login';
+
+  @override
+  String get registerButton => 'Register';
+
+  @override
+  String get emailRequired => 'Email is required';
+
+  @override
+  String get passwordRequired => 'Password is required';
+
+  @override
+  String get nameRequired => 'Name is required';
+
+  @override
+  String get viewRecordings => 'View Recordings';
+
+  @override
+  String get noRecordingsYet => 'No recordings yet';
+
+  @override
+  String get recordingsWillAppear =>
+      'Recordings will appear here after\nyou create them';
+
+  @override
+  String get noAudioAvailable => 'No audio available';
+
+  @override
+  String get chunks => 'chunks';
+
+  @override
+  String get selectLanguage => 'Select Language';
+
+  @override
+  String get emailInvalid => 'Please enter a valid email';
+
+  @override
+  String get passwordMinLength => 'Password must be at least 6 characters';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get signUpToGetStarted => 'Sign up to get started';
+
+  @override
+  String get signIn => 'Sign In';
+
+  @override
+  String get recordings => 'Recordings';
+
+  @override
+  String get errorLoadingRecordings => 'Error loading recordings';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get processing => 'Processing';
+
+  @override
+  String get failed => 'Failed';
+
+  @override
+  String get play => 'Play';
+
+  @override
+  String get pause => 'Pause';
+
+  @override
+  String get speed => 'Speed';
 }

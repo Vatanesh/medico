@@ -58,7 +58,7 @@ class _RecordingListScreenState extends State<RecordingListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.patient.name} - Recordings'),
+        title: Text('${widget.patient.name} - ${l10n.recordings}'),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -74,7 +74,7 @@ class _RecordingListScreenState extends State<RecordingListScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Error loading recordings',
+                        l10n.errorLoadingRecordings,
                         style: theme.textTheme.titleLarge,
                       ),
                       const SizedBox(height: 8),
@@ -92,7 +92,7 @@ class _RecordingListScreenState extends State<RecordingListScreen> {
                       FilledButton.icon(
                         onPressed: _loadRecordings,
                         icon: const Icon(Icons.refresh),
-                        label: const Text('Retry'),
+                        label: Text(l10n.retry),
                       ),
                     ],
                   ),
@@ -109,12 +109,12 @@ class _RecordingListScreenState extends State<RecordingListScreen> {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            'No recordings yet',
+                            l10n.noRecordingsYet,
                             style: theme.textTheme.titleLarge,
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Recordings will appear here after\nyou create them',
+                            l10n.recordingsWillAppear,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),

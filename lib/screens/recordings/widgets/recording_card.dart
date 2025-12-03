@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../models/session.dart';
 import '../../../core/constants/api_endpoints.dart';
+import '../../../l10n/app_localizations.dart';
 import 'audio_player_widget.dart';
 
 class RecordingCard extends StatelessWidget {
@@ -31,10 +32,26 @@ class RecordingCard extends StatelessWidget {
     }
   }
 
+  String _getLocalizedStatus(String status, AppLocalizations l10n) {
+    switch (status.toLowerCase()) {
+      case 'completed':
+        return l10n.completed;
+      case 'recording':
+        return l10n.recording;
+      case 'processing':
+        return l10n.processing;
+      case 'failed':
+        return l10n.failed;
+      default:
+        return status;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     
     // Get all audio URLs from chunks
     // If publicUrl is available, use it. Otherwise, construct from gcsPath
@@ -104,7 +121,7 @@ class RecordingCard extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    recording.status.toUpperCase(),
+                    _getLocalizedStatus(recording.status, l10n).toUpperCase(),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: _getStatusColor(recording.status, colorScheme),
                       fontWeight: FontWeight.bold,
@@ -141,7 +158,7 @@ class RecordingCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  '${recording.totalChunks} chunks',
+                  '${recording.totalChunks} ${l10n.chunks}',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
@@ -184,7 +201,7 @@ class RecordingCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'No audio available',
+                        l10n.noAudioAvailable,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: colorScheme.error,
                         ),

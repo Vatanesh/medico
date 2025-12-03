@@ -85,7 +85,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String chunksUploaded(int count) {
-    return '$count chunks अपलोड किए गए';
+    return '$count टुकड़े अपलोड किए गए';
   }
 
   @override
@@ -235,4 +235,110 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get statusLocalization => 'स्थानीयकरण';
+
+  @override
+  String get login => 'लॉगिन';
+
+  @override
+  String get register => 'रजिस्टर';
+
+  @override
+  String get email => 'ईमेल';
+
+  @override
+  String get password => 'पासवर्ड';
+
+  @override
+  String get name => 'नाम';
+
+  @override
+  String get dontHaveAccount => 'खाता नहीं है?';
+
+  @override
+  String get alreadyHaveAccount => 'पहले से खाता है?';
+
+  @override
+  String get loginButton => 'लॉगिन करें';
+
+  @override
+  String get registerButton => 'रजिस्टर करें';
+
+  @override
+  String get emailRequired => 'ईमेल आवश्यक है';
+
+  @override
+  String get passwordRequired => 'पासवर्ड आवश्यक है';
+
+  @override
+  String get nameRequired => 'नाम आवश्यक है';
+
+  @override
+  String get viewRecordings => 'रिकॉर्डिंग देखें';
+
+  @override
+  String get noRecordingsYet => 'अभी तक कोई रिकॉर्डिंग नहीं बनी है';
+
+  @override
+  String get recordingsWillAppear =>
+      'रिकॉर्डिंग यहाँ दिखाई देंगी\nजब आप उन्हें बनाएंगे';
+
+  @override
+  String get noAudioAvailable => 'कोई ऑडियो उपलब्ध नहीं';
+
+  @override
+  String get chunks => 'टुकड़े';
+
+  @override
+  String get selectLanguage => 'भाषा चुनें';
+
+  @override
+  String get emailInvalid => 'कृपया एक वैध ईमेल दर्ज करें';
+
+  @override
+  String get passwordMinLength => 'पासवर्ड कम से कम 6 अक्षर का होना चाहिए';
+
+  @override
+  String get fullName => 'पूरा नाम';
+
+  @override
+  String get confirmPassword => 'पासवर्ड की पुष्टि करें';
+
+  @override
+  String get passwordsDoNotMatch => 'पासवर्ड मेल नहीं खाते';
+
+  @override
+  String get createAccount => 'खाता बनाएं';
+
+  @override
+  String get signUpToGetStarted => 'शुरू करने के लिए साइन अप करें';
+
+  @override
+  String get signIn => 'साइन इन करें';
+
+  @override
+  String get recordings => 'रिकॉर्डिंग';
+
+  @override
+  String get errorLoadingRecordings => 'रिकॉर्डिंग लोड करने में त्रुटि';
+
+  @override
+  String get retry => 'पुनः प्रयास करें';
+
+  @override
+  String get completed => 'पूर्ण';
+
+  @override
+  String get processing => 'प्रोसेसिंग';
+
+  @override
+  String get failed => 'विफल';
+
+  @override
+  String get play => 'चलाएं';
+
+  @override
+  String get pause => 'रोकें';
+
+  @override
+  String get speed => 'गति';
 }

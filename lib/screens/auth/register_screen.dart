@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../l10n/app_localizations.dart';
+import '../../widgets/language_switcher.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -62,11 +64,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final authProvider = Provider.of<AuthProvider>(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: const [
+          LanguageSwitcher(),
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: Center(
@@ -82,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   // Title
                   Text(
-                    'Create Account',
+                    l10n.createAccount,
                     style: theme.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: theme.colorScheme.onSurface,
@@ -91,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Sign up to get started',
+                    l10n.signUpToGetStarted,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -104,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _nameController,
                     textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
-                      labelText: 'Full Name',
+                      labelText: l10n.fullName,
                       prefixIcon: const Icon(Icons.person_outline),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -112,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
+                        return l10n.nameRequired;
                       }
                       return null;
                     },
@@ -124,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: l10n.email,
                       prefixIcon: const Icon(Icons.email_outlined),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -132,10 +138,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return l10n.emailRequired;
                       }
                       if (!value.contains('@')) {
-                        return 'Please enter a valid email';
+                        return l10n.emailInvalid;
                       }
                       return null;
                     },
@@ -147,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _passwordController,
                     obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: l10n.password,
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -167,10 +173,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter a password';
+                        return l10n.passwordRequired;
                       }
                       if (value.length < 6) {
-                        return 'Password must be at least 6 characters';
+                        return l10n.passwordMinLength;
                       }
                       return null;
                     },
@@ -182,7 +188,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _confirmPasswordController,
                     obscureText: !_isConfirmPasswordVisible,
                     decoration: InputDecoration(
-                      labelText: 'Confirm Password',
+                      labelText: l10n.confirmPassword,
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -202,10 +208,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please confirm your password';
+                        return l10n.passwordRequired;
                       }
                       if (value != _passwordController.text) {
-                        return 'Passwords do not match';
+                        return l10n.passwordsDoNotMatch;
                       }
                       return null;
                     },
@@ -230,8 +236,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: Colors.white,
                             ),
                           )
-                        : const Text(
-                            'Create Account',
+                        : Text(
+                            l10n.createAccount,
                             style: TextStyle(fontSize: 16),
                           ),
                   ),
@@ -242,7 +248,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already have an account? ",
+                        l10n.alreadyHaveAccount,
                         style: TextStyle(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -251,7 +257,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Sign In'),
+                        child: Text(l10n.signIn),
                       ),
                     ],
                   ),
