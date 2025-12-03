@@ -1,7 +1,6 @@
 class ApiEndpoints {
   // Base URLs - UPDATE THESE when deployed
-  // Using local network IP for device connectivity
-  static const String baseUrl = 'http://172.18.105.187:3000';
+  static const String baseUrl = 'https://medico-zbsf.onrender.com';
   static const String apiBaseUrl = '$baseUrl/v1';
   
   // Authentication

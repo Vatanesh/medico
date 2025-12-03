@@ -6,11 +6,11 @@
 
 | Resource | Link |
 |----------|------|
-| 📱 **Android APK** | [Download from GitHub Releases](https://github.com/YOUR_USERNAME/medico/releases) |
+| 📱 **Android APK** | [Download from GitHub Releases](https://github.com/Vatanesh/medico/releases/download/demo/app-release.apk) |
 | 🎥 **iOS Loom Video** | [Watch Feature Walkthrough](https://www.loom.com/YOUR_VIDEO_LINK) |
-| 📚 **API Documentation** | [View API Docs](https://documenter.getpostman.com/view/YOUR_ID/medico) |
-| 🔧 **Postman Collection** | [Run in Postman](https://www.postman.com/YOUR_COLLECTION_LINK) |
-| 🚀 **Backend URL** | `http://YOUR_SERVER_IP:3000` (Local) / `https://api.medico.com` (Live) |
+| 📚 **API Documentation** | [View API Docs](https://drive.google.com/file/d/1d4Y4bbCVqfuqiHQVxA-2nZytBk3x0wua/view?usp=sharing) |
+| 🔧 **Postman Collection** | [View Postman Collection](https://drive.google.com/file/d/13H5GPdzgAHpR_9sluQxNTnUnuYu5rg02/view?usp=sharing) |
+| 🚀 **Backend URL** | `https://medico-zbsf.onrender.com` (Live) |
 
 ---
 
