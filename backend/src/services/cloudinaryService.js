@@ -3,11 +3,17 @@ const cloudinary = require('cloudinary').v2;
 class CloudinaryService {
     constructor() {
         // Initialize Cloudinary with credentials from environment
-        cloudinary.config({
+        const config = {
             cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
             api_key: process.env.CLOUDINARY_API_KEY,
             api_secret: process.env.CLOUDINARY_API_SECRET
-        });
+        };
+
+        cloudinary.config(config);
+
+        console.log('☁️  Cloudinary initialized:');
+        console.log('   Cloud name:', config.cloud_name);
+        console.log('   API key:', config.api_key ? '***' + config.api_key.slice(-4) : 'NOT SET');
     }
 
     /**
@@ -29,7 +35,7 @@ class CloudinaryService {
             // Upload to Cloudinary
             const result = await cloudinary.uploader.upload(base64Buffer, {
                 public_id: publicId,
-                resource_type: 'raw', // Use 'raw' for audio files
+                resource_type: 'video', // Use 'video' for audio to enable streaming
                 folder: 'medico/sessions',
                 format: ext,
                 overwrite: true

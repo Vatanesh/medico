@@ -10,6 +10,13 @@ class StorageService {
         this.baseUrl = process.env.BASE_URL || 'http://localhost:3000';
         this.presignedUrls = new Map(); // Store presigned URL mappings
         this.useCloudinary = process.env.USE_CLOUDINARY === 'true' || process.env.NODE_ENV === 'production';
+
+        // Debug logging
+        console.log('📦 Storage Service Initialized:');
+        console.log('   USE_CLOUDINARY env:', process.env.USE_CLOUDINARY);
+        console.log('   NODE_ENV:', process.env.NODE_ENV);
+        console.log('   useCloudinary:', this.useCloudinary);
+        console.log('   Storage path:', this.storagePath);
     }
 
     async initialize() {
@@ -81,7 +88,10 @@ class StorageService {
         const urlInfo = this.validatePresignedUrl(uploadToken);
 
         // Use Cloudinary if enabled
+        console.log('🚀 Upload attempt - useCloudinary:', this.useCloudinary);
+
         if (this.useCloudinary) {
+            console.log('☁️  Uploading to Cloudinary...');
             try {
                 const result = await cloudinaryService.uploadChunk(
                     buffer,
@@ -89,6 +99,8 @@ class StorageService {
                     urlInfo.chunkNumber,
                     urlInfo.mimeType
                 );
+
+                console.log('✅ Cloudinary upload successful:', result.publicUrl);
 
                 // Clean up used token
                 this.presignedUrls.delete(uploadToken);
@@ -100,12 +112,14 @@ class StorageService {
                     mimeType: urlInfo.mimeType
                 };
             } catch (error) {
-                console.error('Cloudinary upload failed:', error);
+                console.error('❌ Cloudinary upload failed:', error.message);
+                console.error('   Full error:', error);
                 throw error;
             }
         }
 
         // Fallback to local storage
+        console.log('💾 Using local storage fallback');
         const sessionDir = path.join(this.storagePath, 'sessions', urlInfo.sessionId);
         await fs.mkdir(sessionDir, { recursive: true });
 
