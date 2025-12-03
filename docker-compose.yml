@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: medinote-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=medinote
+    networks:
+      - medinote-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: medinote-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/medinote
+      - JWT_SECRET=medinote-super-secret-key-2024-attack-capital
+      - JWT_EXPIRES_IN=7d
+      - NODE_ENV=production
+      - STORAGE_TYPE=local
+      - STORAGE_PATH=./uploads
+      - ALLOWED_ORIGINS=*
+      - BASE_URL=http://172.18.105.187:3000
+    volumes:
+      - ./backend/uploads:/app/uploads
+      # Mount source code for development (optional, remove for production)
+      # - ./backend/src:/app/src
+    networks:
+      - medinote-network
+
+volumes:
+  mongodb_data:
+
+
+networks:
+  medinote-network:
+    driver: bridge
