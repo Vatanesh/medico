@@ -182,10 +182,22 @@ class SessionController {
             res.json({
                 sessions: sessions.map(s => ({
                     id: s._id,
+                    user_id: s.user_id,
+                    patient_id: s.patient_id,
+                    patientName: s.patientName,
                     date: s.date,
                     session_title: s.session_title,
                     session_summary: s.session_summary,
-                    start_time: s.start_time
+                    start_time: s.start_time,
+                    end_time: s.end_time,
+                    duration: s.duration,
+                    status: s.status,
+                    transcript_status: s.transcript_status,
+                    transcript: s.transcript,
+                    chunks: s.chunks,
+                    totalChunks: s.totalChunks,
+                    isComplete: s.isComplete,
+                    templateId: s.templateId
                 }))
             });
         } catch (error) {
