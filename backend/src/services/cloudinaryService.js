@@ -36,7 +36,6 @@ class CloudinaryService {
             const result = await cloudinary.uploader.upload(base64Buffer, {
                 public_id: publicId,
                 resource_type: 'video', // Use 'video' for audio to enable streaming
-                folder: 'medico/sessions',
                 format: ext,
                 overwrite: true
             });
