@@ -56,7 +56,7 @@ class CloudinaryService {
     getChunkUrl(sessionId, filename) {
         const publicId = `medico/sessions/${sessionId}/${filename.replace(/\.\w+$/, '')}`;
         return cloudinary.url(publicId, {
-            resource_type: 'raw',
+            resource_type: 'video', // Use 'video' for audio streaming
             secure: true
         });
     }
@@ -69,7 +69,7 @@ class CloudinaryService {
         try {
             const prefix = `medico/sessions/${sessionId}`;
             await cloudinary.api.delete_resources_by_prefix(prefix, {
-                resource_type: 'raw'
+                resource_type: 'video' // Use 'video' for audio files
             });
             console.log(`Deleted Cloudinary resources for session: ${sessionId}`);
         } catch (error) {
