@@ -1,6 +1,6 @@
 {
   "@@locale": "hi",
-  "appTitle": "मेडीनोट",
+  "appTitle": "मेडिको",
   "home": "होम",
   "patients": "मरीज़",
   "sessions": "सत्र",
@@ -61,7 +61,7 @@
   "confirmStopMessage": "क्या आप वाकई रिकॉर्डिंग रोकना चाहते हैं?",
   "stop": "रोकें",
   "recordingStarted": "रिकॉर्डिंग शुरू हो गई",
-  "appSubtitle": "मेडिकल ट्रांसक्रिप्शन ऐप",
+  "appSubtitle": "आपका चिकित्सा वौइस् रिकॉर्डिंग साथी",
   "demoStatus": "डेमो स्थिति",
   "completedFeatures": "पूर्ण सुविधाएँ",
   "nextSteps": "अगले चरण",
@@ -108,5 +108,6 @@
   "failed": "विफल",
   "play": "चलाएं",
   "pause": "रोकें",
-  "speed": "गति"
+  "speed": "गति",
+  "chunk": "टुकड़ा"
 }

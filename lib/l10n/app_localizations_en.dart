@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'MediNote';
+  String get appTitle => 'Medico';
 
   @override
   String get home => 'Home';
@@ -198,7 +198,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recordingStarted => 'Recording started';
 
   @override
-  String get appSubtitle => 'Medical Transcription App';
+  String get appSubtitle => 'Your medical voice recording buddy';
 
   @override
   String get demoStatus => 'Demo Status';
@@ -341,4 +341,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speed => 'Speed';
+
+  @override
+  String get chunk => 'Chunk';
 }

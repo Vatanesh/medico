@@ -147,13 +147,19 @@ class SessionController {
                 }
 
                 // In a real implementation, trigger transcription processing here
-                // For now, just set it to completed
+                // For now, just set it to completed after a delay
+                const sessionIdForUpdate = sessionId;
                 setTimeout(async () => {
                     try {
-                        session.status = 'completed';
-                        session.transcript_status = 'completed';
-                        session.transcript = `[Simulated transcript for session ${sessionId}]`;
-                        await session.save();
+                        // Fetch fresh session from database
+                        const sessionToUpdate = await Session.findById(sessionIdForUpdate);
+                        if (sessionToUpdate) {
+                            sessionToUpdate.status = 'completed';
+                            sessionToUpdate.transcript_status = 'completed';
+                            sessionToUpdate.transcript = `[Simulated transcript for session ${sessionIdForUpdate}]`;
+                            await sessionToUpdate.save();
+                            console.log(`[STATUS UPDATE] Session ${sessionIdForUpdate} status updated to completed`);
+                        }
                     } catch (err) {
                         console.error('Error updating session:', err);
                     }

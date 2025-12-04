@@ -9,7 +9,7 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appTitle => 'मेडीनोट';
+  String get appTitle => 'मेडिको';
 
   @override
   String get home => 'होम';
@@ -198,7 +198,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get recordingStarted => 'रिकॉर्डिंग शुरू हो गई';
 
   @override
-  String get appSubtitle => 'मेडिकल ट्रांसक्रिप्शन ऐप';
+  String get appSubtitle => 'आपका चिकित्सा वौइस् रिकॉर्डिंग साथी';
 
   @override
   String get demoStatus => 'डेमो स्थिति';
@@ -341,4 +341,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get speed => 'गति';
+
+  @override
+  String get chunk => 'टुकड़ा';
 }

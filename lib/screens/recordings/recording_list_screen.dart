@@ -39,10 +39,22 @@ class _RecordingListScreenState extends State<RecordingListScreen> {
 
     try {
       final data = await _apiService.getSessionsByPatient(widget.patient.id);
+      
+      // Debug logging
+      print('[DEBUG] Received ${data.length} recordings');
+      for (var json in data) {
+        print('[DEBUG] Recording ID: ${json['id']}, Status: ${json['status']}');
+      }
+      
       setState(() {
         _recordings = data.map((json) => RecordingSession.fromJson(json)).toList();
         _isLoading = false;
       });
+      
+      // Debug parsed recordings
+      for (var recording in _recordings) {
+        print('[DEBUG] Parsed Recording ID: ${recording.id}, Status: ${recording.status}');
+      }
     } catch (e) {
       setState(() {
         _error = e.toString();

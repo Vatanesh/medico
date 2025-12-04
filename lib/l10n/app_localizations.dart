@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// The title of the application
   ///
   /// In en, this message translates to:
-  /// **'MediNote'**
+  /// **'Medico'**
   String get appTitle;
 
   /// No description provided for @home.
@@ -467,7 +467,7 @@ abstract class AppLocalizations {
   /// No description provided for @appSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Medical Transcription App'**
+  /// **'Your medical voice recording buddy'**
   String get appSubtitle;
 
   /// No description provided for @demoStatus.
@@ -751,6 +751,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Speed'**
   String get speed;
+
+  /// No description provided for @chunk.
+  ///
+  /// In en, this message translates to:
+  /// **'Chunk'**
+  String get chunk;
 }
 
 class _AppLocalizationsDelegate

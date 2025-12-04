@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:medico/l10n/app_localizations.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
   final List<String> audioUrls;
@@ -76,6 +77,15 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     }
   }
 
+  Future<void> _playChunk(int index) async {
+    if (index >= 0 && index < widget.audioUrls.length) {
+      setState(() {
+        _currentChunkIndex = index;
+      });
+      await _audioPlayer.play(UrlSource(widget.audioUrls[index]));
+    }
+  }
+
   Future<void> _seek(Duration position) async {
     await _audioPlayer.seek(position);
   }
@@ -138,7 +148,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               ),
               if (widget.audioUrls.length > 1)
                 Text(
-                  'Chunk ${_currentChunkIndex + 1}/${widget.audioUrls.length}',
+                  '${AppLocalizations.of(context)!.chunk} ${_currentChunkIndex + 1}/${widget.audioUrls.length}',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.primary,
                   ),
@@ -151,6 +161,40 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           ),
           
           const SizedBox(height: 8),
+          
+          // Chunk selector (if multiple chunks)
+          if (widget.audioUrls.length > 1) ...[
+            SizedBox(
+              height: 40,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.audioUrls.length,
+                itemBuilder: (context, index) {
+                  final isCurrentChunk = index == _currentChunkIndex;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: FilterChip(
+                      label: Text('${AppLocalizations.of(context)!.chunk} ${index + 1}'),
+                      selected: isCurrentChunk,
+                      onSelected: (_) => _playChunk(index),
+                      backgroundColor: theme.colorScheme.surfaceVariant,
+                      selectedColor: theme.colorScheme.primary,
+                      labelStyle: TextStyle(
+                        color: isCurrentChunk 
+                            ? theme.colorScheme.onPrimary 
+                            : theme.colorScheme.onSurfaceVariant,
+                        fontWeight: isCurrentChunk 
+                            ? FontWeight.bold 
+                            : FontWeight.normal,
+                      ),
+                      showCheckmark: false,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
           
           // Controls
           Row(
