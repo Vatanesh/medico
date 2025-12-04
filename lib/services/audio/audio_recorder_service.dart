@@ -29,7 +29,7 @@ class AudioRecorderService {
   double get gain => _gain;
   
   // Callback for when a chunk is ready
-  Function(String path, int chunkNumber)? onChunkReady;
+  Function(String path, int chunkNumber, bool isLast)? onChunkReady;
   
   // Callback for audio amplitude updates
   Function(double amplitude)? onAmplitudeUpdate;
@@ -179,13 +179,13 @@ class AudioRecorderService {
     debugPrint('[RECORDER] ✅ Chunk file opened, WAV header written');
   }
 
-  Future<void> _finalizeChunk() async {
+  Future<void> _finalizeChunk({bool isLast = false}) async {
     if (_currentFileSink == null) {
       debugPrint('[RECORDER] ⚠️ Cannot finalize - no active chunk');
       return;
     }
 
-    debugPrint('[RECORDER] 🏁 Finalizing chunk #$_chunkCounter');
+    debugPrint('[RECORDER] 🏁 Finalizing chunk #$_chunkCounter${isLast ? " (LAST)" : ""}');
     debugPrint('[RECORDER] 📊 Total audio data size: $_currentChunkSize bytes');
     debugPrint('[RECORDER] 📊 Audio packets received: $_audioDataCount');
 
@@ -210,7 +210,7 @@ class AudioRecorderService {
       }
       
       if (onChunkReady != null) {
-        onChunkReady!(_currentRecordingPath!, _chunkCounter);
+        onChunkReady!(_currentRecordingPath!, _chunkCounter, isLast);
         _chunkCounter++;
       }
     }
@@ -296,8 +296,8 @@ class AudioRecorderService {
     _chunkTimer?.cancel();
     await _recorder.stop(); // Stop the stream
     
-    // Finalize the last chunk
-    await _finalizeChunk();
+    // Finalize the last chunk with isLast flag
+    await _finalizeChunk(isLast: true);
 
     _state = RecorderState.stopped;
     _currentSessionId = null;

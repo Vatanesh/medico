@@ -20,7 +20,7 @@ class RecordingCard extends StatelessWidget {
   Color _getStatusColor(String status, ColorScheme colorScheme) {
     switch (status.toLowerCase()) {
       case 'completed':
-        return colorScheme.primary;
+        return Colors.green;
       case 'recording':
         return Colors.orange;
       case 'processing':

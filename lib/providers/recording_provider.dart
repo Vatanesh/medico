@@ -266,7 +266,7 @@ class RecordingProvider extends ChangeNotifier {
     }
   }
 
-  void _handleChunkReady(String chunkPath, int chunkNumber) {
+  void _handleChunkReady(String chunkPath, int chunkNumber, bool isLast) {
     // Upload chunk in background
     if (_currentSession != null) {
       _uploadService.uploadChunk(
@@ -274,6 +274,7 @@ class RecordingProvider extends ChangeNotifier {
         chunkPath: chunkPath,
         chunkNumber: chunkNumber,
         mimeType: AppConstants.audioMimeType,
+        isLast: isLast,
       ).catchError((error) {
         debugPrint('[PROVIDER] Chunk upload failed: $error');
         

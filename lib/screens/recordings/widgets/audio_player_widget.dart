@@ -33,15 +33,21 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   void _setupPlayer() {
     _audioPlayer.onDurationChanged.listen((duration) {
-      setState(() => _duration = duration);
+      if (mounted) {
+        setState(() => _duration = duration);
+      }
     });
 
     _audioPlayer.onPositionChanged.listen((position) {
-      setState(() => _position = position);
+      if (mounted) {
+        setState(() => _position = position);
+      }
     });
 
     _audioPlayer.onPlayerStateChanged.listen((state) {
-      setState(() => _isPlaying = state == PlayerState.playing);
+      if (mounted) {
+        setState(() => _isPlaying = state == PlayerState.playing);
+      }
       
       // Auto-play next chunk when current finishes
       if (state == PlayerState.completed) {

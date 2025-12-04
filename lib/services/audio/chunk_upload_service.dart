@@ -24,6 +24,7 @@ class ChunkUploadService {
     required String chunkPath,
     required int chunkNumber,
     required String mimeType,
+    bool isLast = false,
   }) async {
     try {
       debugPrint('[CHUNK] Starting upload for chunk $chunkNumber');
@@ -69,6 +70,7 @@ class ChunkUploadService {
         'gcsPath': gcsPath,
         'mimeType': mimeType,
         'size': audioBytes.length,
+        'isLast': isLast,
       });
       debugPrint('[CHUNK] Backend notified successfully');
 
