@@ -7,7 +7,7 @@
 | Resource | Link |
 |----------|------|
 | 📱 **Android APK** | [Download from GitHub Releases](https://github.com/Vatanesh/medico/releases/download/v1.1-alpha/app-release.apk) |
-| 🎥 **iOS Loom Video** | [Watch Feature Walkthrough](https://www.loom.com/YOUR_VIDEO_LINK) |
+| 🎥 **iOS Loom Video** | [Coming soon!](https://www.loom.com/YOUR_VIDEO_LINK) |
 | 📚 **API Documentation** | [View API Docs](https://drive.google.com/file/d/1d4Y4bbCVqfuqiHQVxA-2nZytBk3x0wua/view?usp=sharing) |
 | 🔧 **Postman Collection** | [View Postman Collection](https://drive.google.com/file/d/13H5GPdzgAHpR_9sluQxNTnUnuYu5rg02/view?usp=sharing) |
 | 🚀 **Backend URL** | `https://medico-zbsf.onrender.com` (Live) |
@@ -74,7 +74,7 @@ flutter run
 - **Framework:** Express.js
 - **Database:** MongoDB + Mongoose
 - **Auth:** JWT Bearer tokens
-- **Storage:** Local filesystem (simulating Cloud Storage)
+- **Storage:** Dual-mode support - Local filesystem (development) / Cloudinary (production)
 - **Deployment:** Docker + Docker Compose
 
 ### Flutter Stack
@@ -122,7 +122,27 @@ environment:
   - MONGODB_URI=mongodb://mongodb:27017/medinote
   - JWT_SECRET=your_secret_key
   - BASE_URL=http://YOUR_IP:3000
+  - USE_CLOUDINARY=false  # Set to 'true' for production
+  - CLOUDINARY_CLOUD_NAME=your-cloud-name
+  - CLOUDINARY_API_KEY=your-api-key
+  - CLOUDINARY_API_SECRET=your-api-secret
 ```
+
+### Storage Configuration
+
+The backend supports two storage modes:
+
+**Local Storage (Development):**
+- Files stored in `./uploads` directory
+- Suitable for local testing and development
+- Set `USE_CLOUDINARY=false`
+
+**Cloudinary (Production):**
+- Cloud-based storage for production deployments
+- Automatic failover to local storage if Cloudinary fails
+- Presigned URL workflow for secure uploads
+- Set `USE_CLOUDINARY=true` and configure Cloudinary credentials
+- Get your credentials from [Cloudinary Dashboard](https://cloudinary.com/console)
 
 ---
 
